@@ -1,0 +1,79 @@
+package com.aclass.practice.run;
+
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.Scanner;
+
+public class PlantRun {
+	public static void main(String[] args) {
+		
+		Connection conn = null;
+		Statement stmt = null;
+		ResultSet rset = null;
+		int result = 0;
+		
+		Scanner sc = new Scanner(System.in);
+		
+		System.out.println("KH상영관 번호를 입력해주세요");
+		int num = sc.nextInt();
+		sc.nextLine();
+		System.out.println("영화 이름을 입력해주세요");
+		String name = sc.nextLine();
+		
+		
+		String sql = """
+				 SELECT
+				        MOVIE_ID
+				      , MOVIE_NAME
+				      , RELEASE_DATE
+				   FROM
+				        TB_PLANT
+				  ORDER
+				     BY
+				        RELEASE_DATE DESC
+			""" ;
+		
+		try {
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+			System.out.println("Driver등록 성공!");
+			
+			conn = DriverManager.getConnection("jdbc:oracle:thin:@115.90.212.20:10000:XE", "AYS14", "AYS141234");
+			System.out.println("DB서버 접속 성공!");
+			
+			conn.setAutoCommit(false);
+			
+			stmt = conn.createStatement();
+			System.out.println("Statement 객체 생성!");
+			
+			result = stmt.executeUpdate(sql);
+			System.out.println("SQL문 실행 성공!");
+			
+			if(result > 0) { // INSERT에 성공했을 경우
+				conn.commit();
+			}
+			
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace(); // 무조건 57행 문제
+			System.out.println("프로젝트에 OJDBC를 추가하였나요?");
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println("사용자이름/비밀번호가 잘못됐습니다. -> 61, 62행");
+			System.out.println("부적합한 Oracle URL이 지정되었습니다. -> 61행");
+			System.out.println("SQL SYNTAX EXception > SQL문 확인하기");
+			System.out.println("NULLPointException > JDBC객체들 확인하기");
+		} finally {
+			try {
+				stmt.close();
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+				
+	
+	}			
+
+}

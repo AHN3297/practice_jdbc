@@ -1,0 +1,15 @@
+package com.aclass.practice.run;
+
+import java.sql.Connection;
+import java.sql.Statement;
+
+public class PlantRun {
+	public static void main(String[] args) {
+		
+		Connection conn = null;
+		Statement stmt = null;
+		int result = 0;
+		
+	}
+
+}

@@ -1,0 +1,83 @@
+package com.aclass.practice.run;
+
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+public class PlantRun {
+	public static void main(String[] args) {
+		
+		Connection conn = null;
+		Statement stmt = null;
+		ResultSet rset = null;
+		int result = 0;
+		
+		String sql = """
+				 SELECT
+				        MOVIE_ID
+				      , MOVIE_NAME
+				      , RELEASE_DATE
+				   FROM
+				        TB_PALNT
+				  ORDER
+				     BY
+				        RELEASE_DATE DESC
+			""" ;
+		
+		try {
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+			conn = DriverManager.getConnection("jdbc:oracle:thin:@115.90.212.20:10000:XE"
+					,"AYS14"
+					,"AYS141234");
+			System.out.println("DB서버접속 성공");
+			
+			stmt = conn.createStatement();
+			rset = stmt.executeQuery(sql);
+			
+			while(rset.next()) {
+				
+				int movieId = rset.getInt("MOVIE_ID");
+		        String movieName = rset.getString("MOVIE_NAME");
+		        Date releaseDate = rset.getDate("RELEASE_DATE");
+				System.out.println("번호 : " + movieId + ", 영화 이름 : " + movieName+ ", 상영일 : " + releaseDate);
+			}
+			stmt.executeQuery(sql);
+			
+		}catch(ClassNotFoundException e){
+			System.out.println("ojdbc추가했나요");
+			System.out.println("oracle.jdbc.driver.OracleDriver오타없나요");
+		}catch(SQLException e){
+			e.printStackTrace();
+			System.out.println("jdbc:oracle:thin:@115.90.212.20:10000:XE오타없나요");
+			System.out.println("사용자계정명 / 비밀번호가 올바른가요?");
+		} finally {
+			try {
+				if(rset != null && !rset.isClosed()){
+					rset.close();
+				}
+			}catch(SQLException e) {
+				e.printStackTrace();
+			}
+			try {
+				if(stmt!= null && !stmt.isClosed()) {
+					stmt.close();
+				}
+			}catch(SQLException e) {
+				e.printStackTrace();
+			}
+			try {
+				if(conn != null && !conn.isClosed()) {
+					conn.close();
+				}
+			}catch(SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
+					
+
+}
