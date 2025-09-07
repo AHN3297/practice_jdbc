@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+<comment>EmployeeSQL</comment>
+<entry key="A">B</entry>
+	<entry key="findAll">
+	SELECT
+	       EMP_ID
+	     , EMP_NAME
+	     , SALARY
+	     , DEPT_TITLE
+	     , JOB_NAME
+	  FROM
+	       EMPLOYEE
+	  LEFT
+	  JOIN
+	       DEPARTMENT ON (DEPT_CODE = DEPT_ID)
+	  JOIN
+	       JOB
+	 USING
+	       (
+	       JOB_CODE
+		   )
+     ORDER
+        BY
+           EMP_ID DESC
+		 
+	</entry>
+	
+	<entry key="findByDept">
+	SELECT
+	       EMP_ID
+	     , EMP_NAME
+	     , SALARY
+	     , DEPT_TITLE
+	     , JOB_NAME
+	  FROM
+	       EMPLOYEE E
+	     , DEPARTMENT D
+	     , JOB J
+	 WHERE
+	       E.DEPT_CODE = D.DEPT_ID
+	   AND
+	      E.JOB_CODE = J.JOB_CODE
+	   AND
+	       DEPT_TITLE = ?
+	 ORDER
+        BY
+           EMP_ID DESC    
+	</entry>
+	
+	<entry key="findByJob">
+	SELECT
+	       EMP_ID
+	     , EMP_NAME
+	     , SALARY
+	     , DEPT_TITLE
+	     , JOB_NAME
+	  FROM
+	       EMPLOYEE E
+	     , DEPARTMENT D
+	     , JOB J
+	 WHERE
+	       E.DEPT_CODE = D.DEPT_ID
+	   AND
+	       E.JOB_CODE = J.JOB_CODE
+	   AND
+	       JOB_NAME = ? 
+	 ORDER
+        BY
+           EMP_ID DESC
+	</entry>
+	<entry key = "selectAll">
+	SELECT
+	       EMP_ID
+	     , EMP_NAME
+	     , EMP_NO
+	     , EMAIL
+	     , PHONE
+	     , DEPT_TITLE
+	     , JOB_NAME
+	     , SALARY
+	     , SAL_LEVEL
+	     , BONUS
+	     , MANAGER_ID
+	     , HIRE_DATE
+	     , ENT_DATE
+	     , ENT_YN
+	  FROM
+	       EMPLOYEE E
+	     , DEPARTMENT D
+	     , JOB J
+	 WHERE
+	       E.DEPT_CODE = D.DEPT_ID
+	   AND
+	       E.JOB_CODE = J.JOB_CODE
+	   AND
+	       EMP_ID = ? 
+
+	
+	</entry>
+	
+	<entry key="update">
+	UPDATE
+	       EMPLOYEE
+	   SET
+	       SALARY = ?
+	     , DEPT_CODE = ?
+	     , JOB_CODE = ?
+	 WHERE
+	       EMP_ID = ?
+	</entry>
+	
+	<entry key="delete">
+	UPDATE
+	       EMPLOYEE
+	   SET
+	       ENT_DATE = SYSDATE
+	     , ENT_YN = 'N'
+	 WHERE
+	       EMP_ID = ?
+	
+	</entry>
+	
+</properties>
