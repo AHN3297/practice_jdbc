@@ -5,45 +5,28 @@ import static com.kh.common.JDBCTemplate.getConnection;
 
 import java.sql.Connection;
 import java.util.List;
+import java.util.function.Function;
 
+import org.apache.ibatis.session.SqlSession;
+
+import com.kh.common.Template;
 import com.kh.statement.model.dao.MusicDao;
+import com.kh.statement.model.dto.MusicNameDTO;
 import com.kh.statement.model.vo.Music;
 
 
 public class MusicService {
-	private Connection conn = null;
-	
-	public MusicService() {
-		conn = getConnection();
-	}
-	
+	private MusicDao musicDao = new MusicDao();
 	public int plusMusic(Music music) {
-		
-		int result = new MusicDao().plusMusic(conn, music);
-		
-		if(result > 0) {
-			commit(conn);
+		SqlSession session = Template.getSqlSession();
+		int result = musicDao.plusMusic(session,music);
+		if(result >0) {
+			session.commit();
 		}
+		session.close();
 		
-		close(conn);
 		return result;
 	}
 	
-	public List<Music> findAll(){
-		
-		List<Music> musics = new MusicDao().findAll(conn);
-		close(conn);
-		return musics;
-		
-	}
-	
-	public List<Music> findByName(String name){
-		
-		List<Music> musics = new MusicService().findByName(conn);
-		close(conn);
-		return musics;
-		
-	}
-	
-
 }
+

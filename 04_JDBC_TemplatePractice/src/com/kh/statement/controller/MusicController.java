@@ -37,10 +37,10 @@ public class MusicController {
 		Music genre = new MusicService().findByGenre(genreName);
 		return genre;
 	}
-public int update(String musicName, String singer, String newMusicName) {
+	public int update(String musicName, String singer, String newMusicName) {
 
-		MusicNameDTO pd = new MusicNameDTO(musicName, singer, newMusicName);
-		int result = new MusicService().update(pd);
+		MusicNameDTO md = new MusicNameDTO(musicName, singer, newMusicName);
+		int result = new MusicService().update(md);
 		return result;
 	}
 	

@@ -156,7 +156,7 @@ public class MusicView {
 		System.out.print("노래 장르를 입력해주세요 > ");
 		String genreName = sc.nextLine();
 		
-		Music genre = mc.findBySinger(genreName);
+		Music genre = mc.findByGenre(genreName);
 		
 		if(genre != null) {
 			System.out.println(genreName+ "님의 검색 결과 입니다.");
@@ -177,22 +177,20 @@ public class MusicView {
 	}
 	public void update() {
 		System.out.println("\n노래제목 수정 서비스입니다.");
-		// 아이디랑 비밀번호랑 새 비밀번호받아서
-		// 아이디랑 비밀번호 있는거 있으면 새 비밀번호로 바꾸기
 		
-	System.out.println("노래제목을 입력해주세요");
-	String musicName = sc.nextLine();
-	System.out.println("가수를 입력해주세요");
-	String singer = sc.nextLine();
-	System.out.println("새 노래제목을 입력해주세요");
-	String newMusicName = sc.nextLine();
+		System.out.println("노래제목을 입력해주세요");
+		String musicName = sc.nextLine();
+		System.out.println("가수를 입력해주세요");
+		String singer = sc.nextLine();
+		System.out.println("새 노래제목을 입력해주세요");
+		String newMusicName = sc.nextLine();
 	
 	int result = mc.update(musicName, singer, newMusicName);
 	
 	 if(result >0) {
-		 System.out.println("비밀번호변경에 성공 ㅊㅊ");
+		 System.out.println("노래변경에 성공 ㅊㅊ");
 	 }else {
-		 System.out.println("비밀번호변경에 실패");
+		 System.out.println("노래번호변경에 실패");
 	 }
 	}
 	
