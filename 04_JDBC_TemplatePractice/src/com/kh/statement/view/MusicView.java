@@ -131,22 +131,24 @@ public class MusicView {
 		System.out.print("가수를 입력해주세요 > ");
 		String singerName = sc.nextLine();
 		
-		Music singer = mc.findBySinger(singerName);
+		List<Music> singer = mc.findBySinger(singerName);
 		
 		if(singer != null) {
-			System.out.println(singerName+ "님의 검색 결과 입니다.");
-			System.out.println("========================================");
-			System.out.println("노래 제목 : " + singer.getMusicName() + ", ");
-			System.out.println("가수 이름 : " + singer.getSingerName() + ", ");
-			System.out.println("장르 : " + singer.getGenreName() + ", ");
-			System.out.println("재생시간 : " + singer.getPlayTime() + ", ");
-			System.out.println("앨범 총 판매수(집계되지않으면 0) : " + singer.getPlayTime());
-			System.out.println("앨범(노래) 발매일 : " + singer.getReleaseDate() + ", ");
-			System.out.println("========================================");
-			System.out.println();
-			
-		}else {
-			System.out.println("가수 이름이 존재하지 않습니다");
+			if(singer.isEmpty()) {
+				System.out.println("조회결과가 존재하지않습니다.");
+			}else {
+				for(Music music : singer) {
+					System.out.println("=====================================");
+					System.out.println(music.getMusicNum() + "번 음악");
+					System.out.println("음악 : "+ music.getMusicName() + ", ");
+					System.out.println("가수 : " + music.getSingerName() + ", ");
+					System.out.println("장르 : " + music.getGenreName() + ", ");
+					System.out.println("재생시간 : "+ music.getPlayTime() + ", ");
+					System.out.println("앨범 총 판매수(집계되지않으면 0) : "+ music.getAlbumSell() + ", ");
+					System.out.println("앨범(노래) 발매일 : " + music.getReleaseDate() + ", ");
+					System.out.println("=====================================");
+				}
+			}
 		}
 		
 	}

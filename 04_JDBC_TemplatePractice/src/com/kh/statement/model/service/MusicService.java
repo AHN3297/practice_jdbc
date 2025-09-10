@@ -17,6 +17,7 @@ import com.kh.statement.model.vo.Music;
 
 public class MusicService {
 	private MusicDao musicDao = new MusicDao();
+	
 	public int plusMusic(Music music) {
 		SqlSession session = Template.getSqlSession();
 		int result = musicDao.plusMusic(session,music);
@@ -26,6 +27,27 @@ public class MusicService {
 		session.close();
 		
 		return result;
+	}
+	
+	public List<Music> findAll(){
+		SqlSession session = Template.getSqlSession();
+		List<Music> music = musicDao.findAll(session);
+		session.close();
+		return music;
+	}
+	
+	public List<Music> findByName(String name){
+		SqlSession session = Template.getSqlSession();
+		List<Music> music = musicDao.findByName(session, name);
+		session.close();
+		return music;
+	}
+	public List<Music> findBySinger(String singerName) {
+		SqlSession session = Template.getSqlSession();
+		List<Music> music = musicDao.findBySinger(session, singerName);
+		session.close();
+		return music;
+		
 	}
 	
 }

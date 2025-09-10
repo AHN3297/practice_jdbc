@@ -27,9 +27,9 @@ public class MusicController {
 		return musics;		
 	}
 	
-	public Music findBySinger(String singerName) {
+	public List<Music> findBySinger(String singerName) {
 		// 가수 이름으로 검색하기
-		Music singer = new MusicService().findBySinger(singerName);
+		List<Music> singer = new MusicService().findBySinger(singerName);
 		return singer;
 	}
 	

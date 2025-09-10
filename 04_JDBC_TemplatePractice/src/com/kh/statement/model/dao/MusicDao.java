@@ -16,16 +16,23 @@ public class MusicDao {
 		return session.insert("musicMapper.plusMusic", music);
 		
 	}
+	
+	public List<Music> findAll(SqlSession session){
+		//List<Music> music = session.selectList("musicmapepr.findAll");
+		return session.selectList("musicMapper.findAll");
+	
+	}
+	
+	public List<Music> findByName(SqlSession session, String name){
+		session.selectList("musicMapper.findByName",name);
+		return session.selectList("musicMapper.findByName");
+		
+	}
+	//만약에 받는게 list가 아니라 Music 이라면 selectOne으로 받았어야했다.
+	public List<Music> findBySinger(SqlSession session, String singerName) {
+		return session.selectList("musicMapper.findBySinger", singerName);
+	}
 	/*
-	public List<Music> findAll(Connection conn){
-		
-	}
-	public List<Music> findByName(Connection conn, String name){
-		
-	}
-	public Music findBySinger(Connection conn, String singerName) {
-		
-	}
 	public Music findByGenre(Connection conn, String genreName) {
 		
 	}
