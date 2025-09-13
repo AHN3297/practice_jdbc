@@ -33,8 +33,8 @@ public class MusicController {
 		return singer;
 	}
 	
-	public Music findByGenre(String genreName) {
-		Music genre = new MusicService().findByGenre(genreName);
+	public List<Music> findByGenre(String genreName) {
+		List<Music> genre = new MusicService().findByGenre(genreName);
 		return genre;
 	}
 	public int update(String musicName, String singer, String newMusicName) {

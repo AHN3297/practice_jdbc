@@ -52,7 +52,7 @@
 	
 	</select>
 	
-	<select id="findByName" parameterType="com.kh.statement.model.vo.Music">
+	<select id="findByName" parameterType="string" resultMap="musicResultSet">
 			SELECT
 	               MUSIC_NUM
 		         , MUSIC_NAME
@@ -64,7 +64,7 @@
 	          FROM 
 	               TB_MUSIC
 	         WHERE
-				   MUSIC_NAME LIKE '%'||#{musicName}||'%'      
+				   MUSIC_NAME LIKE '%'||#{name}||'%'      
 	         ORDER
 	            BY
 	               MUSIC_NUM ASC
@@ -88,6 +88,45 @@
 	               MUSIC_NUM ASC
 	
 	</select>
+	<select id="findByGenre" parameterType="string" resultMap="musicResultSet">
+			 SELECT 
+			        MUSIC_NUM,
+			        MUSIC_NAME,
+			        SINGER_NAME,
+			        GENRE_NAME,
+			        PLAY_TIME,
+			        ALBUM_SELL,
+			        RELEASE_DATE
+			   FROM
+			        TB_MUSIC
+			  WHERE
+			        GENRE_NAME = #{genreName}
+			  ORDER
+			     BY
+			        MUSIC_NUM ASC
+
+	
+	</select>
+	<update id="update" parameterType="com.kh.statement.model.dto.MusicNameDTO">
+		 UPDATE
+	            TB_MUSIC
+	        SET
+	            MUSIC_NAME = #{newMusicName}
+	      WHERE
+	            MUSIC_NAME = #{musicName}
+	        AND
+	            SINGER_NAME = #{singer}
+	
+	</update>
+	<delete id="delete" parameterType="com.kh.statement.model.dao.MusicDao">
+			DELETE
+				   TB_MUSIC
+			 WHERE
+			 	   MUSIC_NAME = #{musicName}
+			   AND
+			       SINGER_NAME = #{singerName}
+					
+	</delete>
 	
 
 </mapper> 

@@ -38,17 +38,42 @@ public class MusicService {
 	
 	public List<Music> findByName(String name){
 		SqlSession session = Template.getSqlSession();
-		List<Music> music = musicDao.findByName(session, name);
-		session.close();
+		List<Music> music = musicDao.findByName(session , name);
+		session.close(); 
 		return music;
 	}
 	public List<Music> findBySinger(String singerName) {
 		SqlSession session = Template.getSqlSession();
-		List<Music> music = musicDao.findBySinger(session, singerName);
+		List<Music> music = musicDao.findBySinger(session , singerName);
 		session.close();
 		return music;
 		
 	}
+	public List<Music> findByGenre(String genreName){
+		SqlSession session = Template.getSqlSession();
+		List<Music> music = musicDao.findByGenre(session , genreName);
+		session.close();
+		return music;
+	}
 	
+	public int update(MusicNameDTO md) {
+		SqlSession session = Template.getSqlSession();
+		int result = musicDao.update(session , md);
+		if(result >0) {
+			session.commit();
+		}
+		session.close();
+		return result;
+	}
+	
+	public int delete(Music music) {
+		SqlSession session = Template.getSqlSession(); 
+		int result = musicDao.delete(session , music);
+		if(result >0) {
+			session.commit();
+		}
+		session.close();
+		return result;
+	}
 }
 

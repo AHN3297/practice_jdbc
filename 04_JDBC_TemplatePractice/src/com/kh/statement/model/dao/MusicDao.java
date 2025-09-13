@@ -24,23 +24,26 @@ public class MusicDao {
 	}
 	
 	public List<Music> findByName(SqlSession session, String name){
-		session.selectList("musicMapper.findByName",name);
-		return session.selectList("musicMapper.findByName");
+		
+		return session.selectList("musicMapper.findByName",name);
 		
 	}
 	//만약에 받는게 list가 아니라 Music 이라면 selectOne으로 받았어야했다.
 	public List<Music> findBySinger(SqlSession session, String singerName) {
 		return session.selectList("musicMapper.findBySinger", singerName);
 	}
-	/*
-	public Music findByGenre(Connection conn, String genreName) {
+	
+	public List<Music> findByGenre(SqlSession session, String genreName) {
+		return session.selectList("musicMapper.findByGenre", genreName);
+	}
+	
+	public int update(SqlSession session, MusicNameDTO md) {
+		return session.update("musicMapper.update", md);
+	}
+	
+	public int delete(SqlSession session, Music music) {
+		return session.delete("musicMapper.delete", music);
 		
 	}
-	public int update(MusicNameDTO pd) {
-		
-	}
-	public int delete(Music music) {
-		
-	}
-	*/
+	
 }
