@@ -3,5 +3,137 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
   <mapper namespace="employeeMapper">
+  	<resultMap id="employeeResultSet" type="com.kh.statement.model.vo.Employee">
+		<result column="EMP_ID" property="empId" />
+		<result column="EMP_NAME" property="empName" />
+		<result column="EMP_NO" property="empNo" />
+		<result column="EMAIL" property="email" />
+		<result column="PHONE" property="phone" />
+		<result column="DEPT_TITLE" property="deptTitle" />
+		<result column="JOB_NAME" property="jobName" />
+		<result column="SALARY" property="salary" />
+		<result column="SAL_LEVEL" property="salLevel" />
+		<result column="BOBUS" property="Bonus" />
+		<result column="MANAGER_ID" property="managerId" />
+		<result column="HIRE_DATE" property="hireDate" />
+		<result column="ENT_DATE" property="entDate" />
+		<result column="ENT_YN" property="entYn" />		
+	</resultMap>
+	
+	<select id="findAll" resultMap="employeeResultSet">
+	SELECT
+	       EMP_ID
+	     , EMP_NAME
+	     , SALARY
+	     , DEPT_TITLE
+	     , JOB_NAME
+	  FROM
+	       EMPLOYEE
+	  LEFT
+	  JOIN
+	       DEPARTMENT ON (DEPT_CODE = DEPT_ID)
+	  JOIN
+	       JOB
+	 USING
+	       (
+	       JOB_CODE
+		   )
+     ORDER
+        BY
+           EMP_ID DESC
+           
+	</select>
+	<select id="findByDept" parameterType="string" resultMap="employeeResultSet">
+	SELECT
+	       EMP_ID
+	     , EMP_NAME
+	     , SALARY
+	     , DEPT_TITLE
+	     , JOB_NAME
+	  FROM
+	       EMPLOYEE E
+	     , DEPARTMENT D
+	     , JOB J
+	 WHERE
+	       E.DEPT_CODE = D.DEPT_ID
+	   AND
+	      E.JOB_CODE = J.JOB_CODE
+	   AND
+	       DEPT_TITLE = #{dept}
+	 ORDER
+        BY
+           EMP_ID DESC  
+	</select>
+	
+	<select id="findByJob" parameterType="string" resultMap="employeeResultSet">
+	SELECT
+	       EMP_ID
+	     , EMP_NAME
+	     , SALARY
+	     , DEPT_TITLE
+	     , JOB_NAME
+	  FROM
+	       EMPLOYEE E
+	     , DEPARTMENT D
+	     , JOB J
+	 WHERE
+	       E.DEPT_CODE = D.DEPT_ID
+	   AND
+	       E.JOB_CODE = J.JOB_CODE
+	   AND
+	       JOB_NAME = #{job}
+	 ORDER
+        BY
+           EMP_ID DESC
+	</select>
+	
+	<select id="selectAll" parameterType="_int" resultMap="employeeResultSet">
+	SELECT
+	       EMP_ID
+	     , EMP_NAME
+	     , EMP_NO
+	     , EMAIL
+	     , PHONE
+	     , DEPT_TITLE
+	     , JOB_NAME
+	     , SALARY
+	     , SAL_LEVEL
+	     , BONUS
+	     , MANAGER_ID
+	     , HIRE_DATE
+	     , ENT_DATE
+	     , ENT_YN
+	  FROM
+	       EMPLOYEE E
+	     , DEPARTMENT D
+	     , JOB J
+	 WHERE
+	       E.DEPT_CODE = D.DEPT_ID
+	   AND
+	       E.JOB_CODE = J.JOB_CODE
+	   AND
+	       EMP_ID = #{num}
+	</select>
+	
+	<update id="update" parameterType="com.kh.statement.model.dao.EmployeeDao">
+		UPDATE
+	       EMPLOYEE
+	   SET
+	       SALARY = #{salary}
+	     , DEPT_CODE = #{deptCode}
+	     , JOB_CODE = #{jobCode}
+	 WHERE
+	       EMP_ID = #{empId}
+	</update>
+	
+	<delete id="delete" parameterType="com.kh.statement.model.dao.EmployeeDao">
+	UPDATE
+	       EMPLOYEE
+	   SET
+	       ENT_DATE = SYSDATE
+	     , ENT_YN = 'Y'
+	 WHERE
+	       EMP_ID = #{empId}
+	</delete>
   
   </mapper>

@@ -34,9 +34,9 @@ public class EmployeeController {
 		
 	}
 	
-	public int update(int id, int salary, String deptCode, String jobCode) {
+	public int update(int empId, int salary, String deptCode, String jobCode) {
 		Employee employee = new Employee();
-		employee.setEmpId(id);
+		employee.setEmpId(empId);
 		employee.setSalary(salary);
 		employee.setDeptCode(deptCode);
 		employee.setJobCode(jobCode);
@@ -46,9 +46,9 @@ public class EmployeeController {
 		return result;
 	}
 	
-	public int delete(int id) {
+	public int delete(int empId) {
 		Employee employee = new Employee();
-		employee.setEmpId(id);
+		employee.setEmpId(empId);
 		
 		
 		int result = new EmployeeService().delete(employee);

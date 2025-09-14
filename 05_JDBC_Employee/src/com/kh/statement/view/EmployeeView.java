@@ -95,8 +95,8 @@ public class EmployeeView {
 		
 	}
 	public void findByDept() {
-		System.out.println("\n직급명으로 사원을 검색하는 페이지입니다.");
-		System.out.println("직급명을 입력해주세요.");
+		System.out.println("\n부서명으로 사원을 검색하는 페이지입니다.");
+		System.out.println("부서명을 입력해주세요.");
 		String dept = sc.nextLine();
 		
 		List<Employee> employees = ec.findByDept(dept);
@@ -120,8 +120,8 @@ public class EmployeeView {
 	}
 	
 	public void findByJob() {
-		System.out.println("\n부서명으로 사원을 검색하는 페이지입니다.");
-		System.out.println("부서명을 입력해주세요.");
+		System.out.println("\n직급명으로 사원을 검색하는 페이지입니다.");
+		System.out.println("직급명을 입력해주세요.");
 		String job = sc.nextLine();
 		
 		List<Employee> employees = ec.findByJob(job);
@@ -198,7 +198,7 @@ public class EmployeeView {
 		// 아이디랑 비밀번호 있는거 있으면 새 비밀번호로 바꾸기
 		
 		System.out.println("사번을 입력해주세요");
-		int id = sc.nextInt();
+		int empId = sc.nextInt();
 		
 		System.out.print("새 급여: ");
 	    int salary = sc.nextInt();
@@ -209,7 +209,7 @@ public class EmployeeView {
 	    System.out.print("새 직급코드: ");
 	    String jobCode = sc.next();
 		
-		int result = ec.update(id, salary, deptCode, jobCode);
+		int result = ec.update(empId, salary, deptCode, jobCode);
 		
 		if(result >0) {
 			 System.out.println("사원정보변경에 성공 ㅊㅊ");
@@ -221,9 +221,9 @@ public class EmployeeView {
 	public void delete() {
 		System.out.println("잘가");
 		System.out.println("사번을 입력해주세요");
-		int id = sc.nextInt();
+		int empId = sc.nextInt();
 		sc.nextLine();
-		int result = ec.delete(id);
+		int result = ec.delete(empId);
 		if(result > 0) {
 			System.out.println("성공하였습니다.");
 		} else {

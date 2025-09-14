@@ -1,20 +1,38 @@
 package com.kh.statement.model.dao;
 
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Properties;
 
-import com.kh.common.JDBCTemplate;
+import org.apache.ibatis.session.SqlSession;
+
 import com.kh.statement.model.vo.Employee;
 
 
 public class EmployeeDao {
+	public List<Employee> findAll(SqlSession session){
+		return session.selectList("employeeMapper.findAll");
+	}
+	
+	public List<Employee> findByDept(SqlSession session, String dept){
+		return session.selectList("employeeMapper.findByDept", dept);
+	}
+	
+	public List<Employee> findByJob(SqlSession session, String job){
+		return session.selectList("employeeMapper.findByJob", job);
+	}
+	
+	public Employee selectAll(SqlSession session, int num){
+		return session.selectOne("employeeMapper.selectAll",num);
+		
+	}
+	
+	public int update(SqlSession session, Employee employee) {
+		return session.update("employeeMapper.update", employee);
+	}
+	
+	public int delete(SqlSession session, Employee employee) {
+		return session.delete("employeeMapper.delete", employee);
+	}
+	/*
 	
 	private Properties prop = new Properties();
 	
@@ -205,5 +223,7 @@ public class EmployeeDao {
 		}
 		return result;
 	}
+	
+	*/
 
 }

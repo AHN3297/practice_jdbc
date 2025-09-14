@@ -116,7 +116,7 @@
 	       EMPLOYEE
 	   SET
 	       ENT_DATE = SYSDATE
-	     , ENT_YN = 'N'
+	     , ENT_YN = 'Y'
 	 WHERE
 	       EMP_ID = ?
 	
